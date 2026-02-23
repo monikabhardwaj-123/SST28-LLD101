@@ -55,3 +55,11 @@ JSON: OK bytes=61
 
 ## 10. Stretch goals
 - Add a new exporter without changing existing exporters.
+
+## 11. Refactoring Resolution (LSP)
+The Exporter hierarchy violated the Liskov Substitution Principle by subclasses altering the base `Exporter` contract in unpredictably silent ways (throwing new exceptions, mishandling nulls, mangling data semantics). We fixed this via Composition over Inheritance:
+- Created the **`FormatEncoder`** interface for pure parsing logic, and **`ExportConstraint`** interface for validation logic.
+- Transformed the base **`Exporter`** into a strictly enforced contract that verifies null rules globally, validates injected `ExportConstraint` constraints, and strictly encodes via injected `FormatEncoder`.
+- Subclasses (`PdfExporter`, `JsonExporter`, `CsvExporter`) now define themselves explicitly by passing their components up to `super()`.
+- Data semantics in `CsvEncoder` were corrected to use standard CSV escaping (`"`) instead of silently replacing commas and newlines with spaces, resolving the semantic drift.
+- Clients can confidently use `Exporter` knowing preconditions are enforced universally and postconditions match perfectly without runtime surprises.

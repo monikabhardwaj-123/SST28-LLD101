@@ -59,3 +59,13 @@ Saved invoice: INV-1001 (lines=7)
 
 ## 10. Stretch goals
 - Add a second invoice for a staff member with different discount policy.
+
+## 11. Refactoring Resolution (OCP & SRP)
+The CafeteriaSystem was refactored to decouple rules and logic:
+- Extracted **`TaxRule`** and **`DiscountRule`** interfaces allowing new pricing rules without modifying core logic.
+- Extracted **`StudentTax`**, **`StaffTax`**, **`StudentDiscount`**, etc., implementing exact rules.
+- Created **`InvoiceReceipt`** as a data structure to neatly pass calculation results.
+- Created **`InvoicePrinter`** to handle formatting completely independent of pricing logic.
+- Created **`InvoiceStore`** interface to handle decoupled persistence.
+- **`CafeteriaSystem`** orchestrates the checkout process via Dependency Injection of rules and utility classes.
+- Verified output matches EXACTLY without hard-coded string logic inside the main loops.

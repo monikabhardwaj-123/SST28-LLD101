@@ -81,3 +81,12 @@ StudentRecord{id='SST-2026-0001', name='Riya', email='riya@sst.edu', phone='9876
 ## 10. Stretch goals
 - Add a second input example that fails validation, without duplicating logic.
 - Make program list configurable without touching onboarding workflow code.
+
+## 11. Refactoring Resolution
+The code has been successfully refactored to adhere to the Single Responsibility Principle:
+- **`InputParser`**: Parses the raw string into a structured `RegistrationRequest` object.
+- **`StudentValidator`**: Encapsulates validation rules and returns domain-specific error messages.
+- **`StudentRepository`**: An interface abstracting db operations. `FakeDb` implements this.
+- **`OnboardingPrinter`**: Handles formatting and console output explicitly.
+- **`OnboardingService`**: Now acts solely as a central coordinator delegating tasks to its injected dependencies.
+- Added a second input example inside `Main.java` (commented out) demonstrating validation failures.

@@ -53,3 +53,10 @@ Saved booking: H-7781
 
 ## 10. Stretch goals
 - Add “late fee” rule without editing the main calculation loop.
+
+## 11. Refactoring Resolution (OCP)
+The HostelFeeCalculator was heavily reliant on internal `switch` and `if/else` checks for room types and add-ons. It was refactored to align with the Open/Closed Principle:
+- Introduced the **`FeeComponent`** interface to represent individual pricing rules.
+- Extracted pricing strategies into **`RoomFeeComponent`** and **`AddOnFeeComponent`**, which are dynamically configured with pricing maps inside `Main`.
+- The `HostelFeeCalculator` now only iterates over a provided `List<FeeComponent>` resolving the fees algorithmically, completely removing the `switch` block.
+- New rules or room types can now simply be injected at startup or by adding a new `FeeComponent` without editing the core `HostelFeeCalculator`.

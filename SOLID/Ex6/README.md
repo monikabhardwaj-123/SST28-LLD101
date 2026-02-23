@@ -50,3 +50,11 @@ AUDIT entries=3
 
 ## 10. Stretch goals
 - Add a new sender without editing existing ones.
+
+## 11. Refactoring Resolution (LSP)
+The `NotificationSender` hierarchy violated the Liskov Substitution Principle because each subclass mutated the base contract expectations, e.g., silently dropping fields (SMS), silently truncating bodies (Email), and throwing unexpected new Exceptions for validation (WhatsApp). 
+
+Refactoring utilized Composition over Inheritance to formalize these behaviors explicitly:
+- Created the **`ChannelAdapter`** interface encompassing `validate(Notification)` and `formatParams(Notification)`.
+- Rebuilt **`NotificationSender`** as a concrete template class that rigorously enforces the sequence: validate -> format -> print -> audit. This legally codifies the contract that senders *may* throw exceptions for invalid data and *will* uniquely format requests based on hardware limitations without those behaviors being a "surprise" mutation of the contract.
+- The former subclasses `EmailSender`, `SmsSender`, and `WhatsAppSender` now simply inherit the base class and construct it with their specific `ChannelAdapter` implementations. The Liskov Substitution Principle holds because the variations are explicitly parameterized by the unified rules engine in `NotificationSender`.

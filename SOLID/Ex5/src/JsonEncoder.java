@@ -1,0 +1,15 @@
+import java.nio.charset.StandardCharsets;
+
+public class JsonEncoder implements FormatEncoder {
+    @Override
+    public ExportResult encode(ExportRequest req) {
+        String json = "{\"title\":\"" + escape(req.title) + "\",\"body\":\"" + escape(req.body) + "\"}";
+        return new ExportResult("application/json", json.getBytes(StandardCharsets.UTF_8));
+    }
+
+    private String escape(String s) {
+        if (s == null)
+            return "";
+        return s.replace("\"", "\\\"");
+    }
+}

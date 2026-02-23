@@ -53,3 +53,10 @@ Saved evaluation for roll=23BCS1001
 
 ## 10. Stretch goals
 - Read rule thresholds from a config object without editing rule logic.
+
+## 11. Refactoring Resolution (OCP)
+The EligibilityEngine has been refactored to adhere to the Open/Closed Principle:
+- Introduced the **`EligibilityRule`** interface to represent a single validation check.
+- Extracted existing hard-coded `if/else` checks into concrete rule classes: **`DisciplinaryFlagRule`**, **`CgrRule`**, **`AttendanceRule`**, and **`CreditsRule`**.
+- The **`EligibilityEngine`** now accepts a `List<EligibilityRule>` via dependency injection, making it open for extension (adding new rules to the list) but closed for modification.
+- Rule parameters (such as the 8.0 CGR threshold and 75% attendance minimum) are now injected via constructor parameters into the concrete rules upon instantiation in `Main`, fulfilling the stretch goal of making rules configurable.
