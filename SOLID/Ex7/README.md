@@ -55,3 +55,8 @@ AC OFF
 
 ## 10. Stretch goals
 - Add a “smart board” device without implementing unrelated methods.
+
+## 11. Resolution
+- **Segregated Interfaces**: `SmartClassroomDevice` has been replaced with `PowerControl`, `BrightnessControl`, `TemperatureControl`, `InputControl`, and `ScannerControl`.
+- **ISP Adherence**: Devices now only implement the capabilities they actually support (e.g., `AttendanceScanner` implements `ScannerControl`).
+- **Dynamic Controller**: `ClassroomController` dynamically queries the `DeviceRegistry` by interface type rather than depending on strict string identification.
