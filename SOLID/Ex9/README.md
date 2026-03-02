@@ -51,3 +51,7 @@ FINAL: PASS (total=90)
 
 ## 10. Stretch goals
 - Add a second grading strategy without editing pipeline logic.
+
+## 11. Resolution
+- **Abstract Interfaces Introduced**: `IPlagiarismChecker`, `ICodeGrader`, `IReportWriter`, and `ILogger` were added to decouple concrete implementations from the higher-level pipeline.
+- **Dependency Injection**: `EvaluationPipeline` no longer constructs its tools using `new` locally. Instead, it accepts those components via constructor injection. This permits flexible unit testing and modular substitution without changing `EvaluationPipeline` itself.
