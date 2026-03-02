@@ -49,3 +49,8 @@ RECEIPT: R-501 | fare=90.00
 
 ## 10. Stretch goals
 - Add a “mock” allocator and gateway for tests without touching booking logic.
+
+## 11. Resolution
+- **Segregated Interfaces Established**: Created `IDistanceCalculator`, `IDriverAllocator`, `IPaymentGateway`, `IFareCalculator`, and `IConsoleUi`.
+- **Single Responsibility Pricing**: Embedded arbitrary arithmetic for pricing into `DefaultFareCalculator` to relieve the Transport Booking service of evaluating and formatting domain rules directly.
+- **Constructor Injection**: Added strict parameterization into `TransportBookingService` preventing it from resolving its tools concretely via `new`. The orchestrating application (`Main`) handles dependency mapping.
