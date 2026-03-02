@@ -50,3 +50,8 @@ Summary: ledgerBalance=5000, minutes=1, events=1
 
 ## 10. Stretch goals
 - Add “publicity lead” without implementing finance methods.
+
+## 11. Resolution
+- **Segregated Interfaces**: `ClubAdminTools` was split into three capability interfaces: `FinanceClient`, `MinutesClient`, and `EventsClient`.
+- **Targeted Implementations**: `TreasurerTool`, `SecretaryTool`, and `EventLeadTool` now solely implement their relevant interfaces. Unnecessary methods and dummy implementations were removed.
+- **Client Dependency Update**: `ClubConsole` instantiates capability-specific interfaces rather than depending on a single fat interface.
