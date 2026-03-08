@@ -40,3 +40,10 @@ Build & Run
 Repo intent
 This is a refactoring assignment: the starter code works, but it does not use Proxy properly.
 Students should refactor the design so access control + lazy loading happen via a proxy.
+
+---
+
+## Resolution
+- Replaced monolithic `ReportFile.java` with a formal `Report.java` interface decoupling internal logic limits.
+- Established `RealReport.java` encompassing purely expensive payload loads explicitly.
+- Injected `ReportProxy.java` checking authorization against `AccessControl.java`. When approved, it will cache instances mapping lazy evaluation safely. All components in `App` utilize explicitly controlled proxy pointers cleanly executing logic natively securely.

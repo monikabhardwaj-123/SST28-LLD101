@@ -27,3 +27,8 @@ cd adapter-payments/src
 javac com/example/payments/*.java
 java com.example.payments.App
 ```
+
+## Resolution
+- Created `FastPayAdapter` and `SafeCashAdapter` to implement `PaymentGateway`.
+- Refactored `App.java` to inject these adapters into `OrderService`.
+- Modified `OrderService.java` to interact with `PaymentGateway` directly, removing provider branching logic and decoupling it from concrete SDK classes.

@@ -33,3 +33,11 @@ Build & Run
 Repo intent
 This is a **refactoring assignment**: the starter code is intentionally wasteful.
 Students should refactor to Flyweight without changing the external behavior.
+
+---
+
+## Resolution
+- Made `MarkerStyle.java` immutable, turning it into the intrinsic flyweight object by removing setters and making fields final.
+- Implemented `MarkerStyleFactory.java` to cache and return identical styles based on their parameters perfectly deduplicating objects.
+- Abstracted `MapMarker.java` retaining extrinsic data (lat, lng, label) locally while pointing globally to shared flyweight references. 
+- Integrated factory pattern through generation steps at `MapDataSource.java` and instantiations natively via `App.java` and `QuickCheck.java`.
